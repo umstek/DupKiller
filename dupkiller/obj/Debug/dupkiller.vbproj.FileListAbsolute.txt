@@ -1,0 +1,11 @@
+C:\Users\Wickramaranga\AppData\Local\Temporary Projects\dupkiller\bin\Debug\dupkiller.exe.config
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\dupkiller\bin\Debug\dupkiller.exe.config
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\dupkiller\bin\Debug\dupkiller.exe
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\dupkiller\bin\Debug\dupkiller.pdb
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\dupkiller\bin\Debug\dupkiller.xml
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\dupkiller\obj\Debug\dupkiller.FormDupKiller.resources
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\dupkiller\obj\Debug\dupkiller.Resources.resources
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\dupkiller\obj\Debug\dupkiller.vbproj.GenerateResource.Cache
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\dupkiller\obj\Debug\dupkiller.exe
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\dupkiller\obj\Debug\dupkiller.xml
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\dupkiller\obj\Debug\dupkiller.pdb

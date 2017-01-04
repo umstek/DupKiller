@@ -1,0 +1,11 @@
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\UnitTest\bin\Release\UnitTest.dll
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\UnitTest\bin\Release\UnitTest.pdb
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\UnitTest\bin\Release\UnitTest.xml
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\UnitTest\bin\Release\dupkiller.exe
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\UnitTest\bin\Release\dupkiller.xml
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\UnitTest\obj\Release\UnitTest.vbprojResolveAssemblyReference.cache
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\UnitTest\obj\Release\UnitTest.Resources.resources
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\UnitTest\obj\Release\UnitTest.vbproj.GenerateResource.Cache
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\UnitTest\obj\Release\UnitTest.dll
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\UnitTest\obj\Release\UnitTest.xml
+C:\Users\Wickramaranga\Documents\Visual Studio 2013\Projects\dupkiller\UnitTest\obj\Release\UnitTest.pdb

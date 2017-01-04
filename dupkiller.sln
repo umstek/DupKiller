@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "dupkiller", "dupkiller\dupkiller.vbproj", "{FF95AA44-D225-4F10-A04F-C42194564C7D}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UnitTest", "UnitTest\UnitTest.vbproj", "{1771A834-0752-4718-9DE8-CC53BC2CD701}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF95AA44-D225-4F10-A04F-C42194564C7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF95AA44-D225-4F10-A04F-C42194564C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF95AA44-D225-4F10-A04F-C42194564C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF95AA44-D225-4F10-A04F-C42194564C7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1771A834-0752-4718-9DE8-CC53BC2CD701}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1771A834-0752-4718-9DE8-CC53BC2CD701}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1771A834-0752-4718-9DE8-CC53BC2CD701}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1771A834-0752-4718-9DE8-CC53BC2CD701}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
