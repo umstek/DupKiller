@@ -41,7 +41,7 @@ namespace DupKiller
 
         private static string GetFileName(string file)
         {
-            return Path.GetFileName(file);
+            return Path.GetFileNameWithoutExtension(file);
         }
 
         private static string GetFileSize(string file)
