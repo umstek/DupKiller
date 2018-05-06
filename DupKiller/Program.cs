@@ -2,9 +2,9 @@
 
 namespace DupKiller
 {
-    internal class Program
+    internal static class Program
     {
-        private static void Main(string[] args)
+        internal static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
         }
