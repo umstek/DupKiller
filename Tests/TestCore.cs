@@ -1,10 +1,24 @@
+using System;
+using System.Collections.Generic;
+using System.IO.Abstractions.TestingHelpers;
 using DupKiller;
 using Xunit;
 
 namespace Tests
 {
-    public class TestCore
+    public class TestCore : IDisposable
     {
+        private Core _core = new Core(
+            new MockFileSystem(
+                new Dictionary<string, MockFileData>
+                {
+                    {@"A:\test\alpha\file.txt", new MockFileData("Test file")},
+                    {@"B:\test\beta\file.txt", new MockFileData("Another test file")},
+                    {@"C:\test\gamma\file.bin", new MockFileData(new byte[] {0x12, 0x34, 0x56, 0xd2})}
+                }
+            )
+        );
+
         [Theory]
         [InlineData("", "A:/whateverpath/filename")]
         [InlineData(".ext", "B:/whateverpath/.ext")]
@@ -14,7 +28,7 @@ namespace Tests
         {
             Assert.Equal(
                 extension,
-                Utilities.ExecuteStaticPrivateMethod(typeof(Core), "GetExtension", new object[] {path})
+                Utilities.ExecutePrivateMethod(_core, "GetExtension", new object[] { path })
             );
         }
 
@@ -27,8 +41,13 @@ namespace Tests
         {
             Assert.Equal(
                 fileName,
-                Utilities.ExecuteStaticPrivateMethod(typeof(Core), "GetFileName", new object[] {path})
+                Utilities.ExecutePrivateMethod(_core, "GetFileName", new object[] { path })
             );
+        }
+
+        public void Dispose()
+        {
+            _core = null;
         }
     }
 }

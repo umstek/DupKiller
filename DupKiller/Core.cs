@@ -1,22 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.IO.Abstractions;
 using System.Security.Cryptography;
 
 namespace DupKiller
 {
-    public static class Core
+    public class Core
     {
-        private static IDictionary<string, Func<string, string>> GroupingFunctions { get; } =
-            new Dictionary<string, Func<string, string>>
-            {
-                {"Extension", GetExtension},
-                {"FileName", GetFileName},
-                {"FileSize", GetFileSize},
-                {"ShortHash", GetShortHash},
-                {"LongHash", GetLongHash}
-            };
-
         // A perfect duplicate files finder would have to compare the content of each file with the 
         // content of everything else. This has a O(n^2) complexity, and since the files can be 
         // large, this is not possible and will take a long time to complete. If a dictionary i.e.: 
@@ -34,34 +24,56 @@ namespace DupKiller
         // Group by extension (optional default yes), file name (optional default no), 
         // file size, shorter hash (MD5), longer hash (SHA512)
 
-        private static string GetExtension(string file)
+        private readonly IFileSystem _fileSystem;
+
+        public Core(IFileSystem fileSystem)
         {
-            return Path.GetExtension(file);
+            _fileSystem = fileSystem;
+            GroupingFunctions =
+                new Dictionary<string, Func<string, string>>
+                {
+                    {"Extension", GetExtension},
+                    {"FileName", GetFileName},
+                    {"FileSize", GetFileSize},
+                    {"ShortHash", GetShortHash},
+                    {"LongHash", GetLongHash}
+                };
         }
 
-        private static string GetFileName(string file)
+        public Core() : this(new FileSystem())
         {
-            return Path.GetFileNameWithoutExtension(file);
         }
 
-        private static string GetFileSize(string file)
+        private IDictionary<string, Func<string, string>> GroupingFunctions { get; }
+
+        private string GetExtension(string file)
         {
-            return new FileInfo(file).Length.ToString();
+            return _fileSystem.Path.GetExtension(file);
         }
 
-        private static string GetShortHash(string file)
+        private string GetFileName(string file)
+        {
+            return _fileSystem.Path.GetFileNameWithoutExtension(file);
+        }
+
+        private string GetFileSize(string file)
+        {
+            return _fileSystem.FileInfo.FromFileName(file).Length.ToString();
+        }
+
+        private string GetShortHash(string file)
         {
             using (var md5 = MD5.Create())
-            using (var stream = File.OpenRead(file))
+            using (var stream = _fileSystem.File.OpenRead(file))
             {
                 return Convert.ToBase64String(md5.ComputeHash(stream));
             }
         }
 
-        private static string GetLongHash(string file)
+        private string GetLongHash(string file)
         {
             using (var sha512 = SHA512.Create())
-            using (var stream = File.OpenRead(file))
+            using (var stream = _fileSystem.File.OpenRead(file))
             {
                 return Convert.ToBase64String(sha512.ComputeHash(stream));
             }
@@ -99,7 +111,7 @@ namespace DupKiller
             return prefixedGroups;
         }
 
-        private static IDictionary<string, IList<string>> BuildDuplicatesIndex(
+        private IDictionary<string, IList<string>> BuildDuplicatesIndex(
             IEnumerable<string> files,
             IList<GroupingCriteria> criteria,
             int criterionIndex = 0,
