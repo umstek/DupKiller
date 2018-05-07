@@ -32,11 +32,11 @@ namespace DupKiller
             GroupingFunctions =
                 new Dictionary<string, Func<string, string>>
                 {
-                    {"Extension", GetExtension},
-                    {"FileName", GetFileName},
-                    {"FileSize", GetFileSize},
-                    {"ShortHash", GetShortHash},
-                    {"LongHash", GetLongHash}
+                    { "Extension", GetExtension },
+                    { "FileName", GetFileName },
+                    { "FileSize", GetFileSize },
+                    { "ShortHash", GetShortHash },
+                    { "LongHash", GetLongHash }
                 };
         }
 
@@ -63,8 +63,11 @@ namespace DupKiller
 
         private string GetShortHash(string file)
         {
+            // Fix wrong path separators
+            var sanitizedPath = _fileSystem.Path.GetFullPath(file);
+
             using (var md5 = MD5.Create())
-            using (var stream = _fileSystem.File.OpenRead(file))
+            using (var stream = _fileSystem.File.OpenRead(sanitizedPath))
             {
                 return Convert.ToBase64String(md5.ComputeHash(stream));
             }
@@ -72,8 +75,10 @@ namespace DupKiller
 
         private string GetLongHash(string file)
         {
+            var sanitizedPath = _fileSystem.Path.GetFullPath(file);
+
             using (var sha512 = SHA512.Create())
-            using (var stream = _fileSystem.File.OpenRead(file))
+            using (var stream = _fileSystem.File.OpenRead(sanitizedPath))
             {
                 return Convert.ToBase64String(sha512.ComputeHash(stream));
             }
