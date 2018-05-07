@@ -19,10 +19,10 @@ namespace Tests
         );
 
         [Theory]
-        [InlineData("", "A:/whateverpath/filename")]
-        [InlineData(".ext", "B:/whateverpath/.ext")]
-        [InlineData(".ext", "B:/whateverpath/filename.ext")]
-        [InlineData("", "C:/whateverpath/")]
+        [InlineData("", @"A:/whateverpath/filename")]
+        [InlineData(".ext", @"B:/whateverpath/.ext")]
+        [InlineData(".ext", @"B:/whateverpath/filename.ext")]
+        [InlineData("", @"C:/whateverpath/")]
         public void TestGetExtension(string extension, string path)
         {
             Assert.Equal(
@@ -32,10 +32,10 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData("filename", "A:/whateverpath/filename")]
-        [InlineData("", "B:/whateverpath/.ext")]
-        [InlineData("filename", "B:/whateverpath/filename.ext")]
-        [InlineData("", "C:/whateverpath/")]
+        [InlineData("filename", @"A:/whateverpath/filename")]
+        [InlineData("", @"B:/whateverpath/.ext")]
+        [InlineData("filename", @"B:/whateverpath/filename.ext")]
+        [InlineData("", @"C:/whateverpath/")]
         public void TestGetFileName(string fileName, string path)
         {
             Assert.Equal(
@@ -45,8 +45,8 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData("9", "A:/test/alpha/file.txt")]
-        [InlineData("4", "C:/test/gamma/file.bin")]
+        [InlineData("9", @"A:/test/alpha/file.txt")]
+        [InlineData("4", @"C:/test/gamma/file.bin")]
         public void TestGetFileSize(string length, string path)
         {
             Assert.Equal(
@@ -56,8 +56,8 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData("7ckAdFxdFddz+83As3bwDA==", "A:/test/alpha/file.txt")]
-        [InlineData("7DY/LTZvMO/gSAwDOQj0Pw==", "C:\\test\\gamma\\file.bin")]
+        [InlineData("7ckAdFxdFddz+83As3bwDA==", @"A:/test/alpha/file.txt")]
+        [InlineData("7DY/LTZvMO/gSAwDOQj0Pw==", @"C:\test\gamma\file.bin")]
         public void TestGetShortHash(string md5, string path)
         {
             Assert.Equal(
@@ -68,7 +68,7 @@ namespace Tests
 
         [Theory]
         [InlineData("aRhaZl7LiPMznPzRr87uoFSjdXNWmG4G+mXb8ElwBeJIF2bft0NhK6Ueg2URakz/5L8Jxh+gztgdf7XsQBwsWg==",
-            "C:/test/gamma/file.bin")]
+            @"C:/test/gamma/file.bin")]
         public void TestGetLongHash(string sha512, string path)
         {
             Assert.Equal(
