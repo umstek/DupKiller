@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DupKiller
 {
@@ -57,21 +58,20 @@ namespace DupKiller
 
         private IDictionary<string, IList<string>> BuildDuplicatesIndex(
             IEnumerable<string> files,
-            IList<Func<string, string>> criteria,
-            int criterionIndex = 0,
+            IEnumerable<Func<string, string>> criteria,
             string prefix = ""
         )
         {
-            var groups = GroupBy(files, criteria[criterionIndex]);
+            var funcs = criteria.ToList();
+            var groups = GroupBy(files, funcs.First());
             var duplicateGroups = TakeOnlyDuplicates(groups);
 
-            if (criterionIndex + 1 < criteria.Count)
+            if (funcs.Count > 1)
             {
                 var flattenedGroups = new Dictionary<string, IList<string>>();
                 foreach (var duplicateGroup in duplicateGroups)
                 {
-                    var innerGroups = BuildDuplicatesIndex(duplicateGroup.Value, criteria, criterionIndex + 1,
-                        duplicateGroup.Key);
+                    var innerGroups = BuildDuplicatesIndex(duplicateGroup.Value, funcs.Skip(1), duplicateGroup.Key);
                     foreach (var key in innerGroups.Keys) flattenedGroups[key] = innerGroups[key];
                 }
 
