@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO.Abstractions.TestingHelpers;
 using DupKiller;
 using Xunit;
 using Xunit.Abstractions;
@@ -11,17 +10,6 @@ namespace Tests
     {
         private const string Prefix = "x";
         private static readonly Func<string, string> GroupFunc = str => str.Substring(0, 2);
-
-        private static readonly Core MockedCore = new Core(
-            new MockFileSystem(
-                new Dictionary<string, MockFileData>
-                {
-                    { @"A:\test\alpha\file.txt", new MockFileData("Test file") },
-                    { @"B:\test\beta\file.txt", new MockFileData("Another test file") },
-                    { @"C:\test\gamma\file.bin", new MockFileData(new byte[] { 0x12, 0x34, 0x56, 0xd2 }) }
-                }
-            )
-        );
 
         private static readonly List<string> Examples = new List<string>
         {
@@ -88,64 +76,6 @@ namespace Tests
             new object[] { PrefixedGroups, DuplicateGroups }
         };
 
-        [Theory]
-        [InlineData("", @"A:/whateverpath/filename")]
-        [InlineData(".ext", @"B:/whateverpath/.ext")]
-        [InlineData(".ext", @"B:/whateverpath/filename.ext")]
-        [InlineData("", @"C:/whateverpath/")]
-        public void TestGetExtension(string extension, string path)
-        {
-            Assert.Equal(
-                extension,
-                MockedCore.ExecutePrivateMethod("GetExtension", new object[] { path })
-            );
-        }
-
-        [Theory]
-        [InlineData("filename", @"A:/whateverpath/filename")]
-        [InlineData("", @"B:/whateverpath/.ext")]
-        [InlineData("filename", @"B:/whateverpath/filename.ext")]
-        [InlineData("", @"C:/whateverpath/")]
-        public void TestGetFileName(string fileName, string path)
-        {
-            Assert.Equal(
-                fileName,
-                MockedCore.ExecutePrivateMethod("GetFileName", new object[] { path })
-            );
-        }
-
-        [Theory]
-        [InlineData("9", @"A:/test/alpha/file.txt")]
-        [InlineData("4", @"C:/test/gamma/file.bin")]
-        public void TestGetFileSize(string length, string path)
-        {
-            Assert.Equal(
-                length,
-                MockedCore.ExecutePrivateMethod("GetFileSize", new object[] { path })
-            );
-        }
-
-        [Theory]
-        [InlineData("7ckAdFxdFddz+83As3bwDA==", @"A:/test/alpha/file.txt")]
-        [InlineData("7DY/LTZvMO/gSAwDOQj0Pw==", @"C:\test\gamma\file.bin")]
-        public void TestGetShortHash(string md5, string path)
-        {
-            Assert.Equal(
-                md5,
-                MockedCore.ExecutePrivateMethod("GetShortHash", new object[] { path })
-            );
-        }
-
-        [Theory]
-        [InlineData("aRhaZl7LiPMznPzRr87uoFSjdXNWmG4G+mXb8ElwBeJIF2bft0NhK6Ueg2URakz/5L8Jxh+gztgdf7XsQBwsWg==",
-            @"C:/test/gamma/file.bin")]
-        public void TestGetLongHash(string sha512, string path)
-        {
-            Assert.Equal(
-                sha512,
-                MockedCore.ExecutePrivateMethod("GetLongHash", new object[] { path })
-            );
-        }
 
         [Theory]
         [MemberData(nameof(GroupByTestCases))]

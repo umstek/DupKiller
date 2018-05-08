@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Abstractions;
-using System.Security.Cryptography;
 
 namespace DupKiller
 {
@@ -24,65 +22,6 @@ namespace DupKiller
         // Group by extension (optional default yes), file name (optional default no), 
         // file size, shorter hash (MD5), longer hash (SHA512)
 
-        private readonly IFileSystem _fileSystem;
-
-        public Core(IFileSystem fileSystem)
-        {
-            _fileSystem = fileSystem;
-            GroupingFunctions =
-                new Dictionary<string, Func<string, string>>
-                {
-                    { "Extension", GetExtension },
-                    { "FileName", GetFileName },
-                    { "FileSize", GetFileSize },
-                    { "ShortHash", GetShortHash },
-                    { "LongHash", GetLongHash }
-                };
-        }
-
-        public Core() : this(new FileSystem())
-        {
-        }
-
-        private IDictionary<string, Func<string, string>> GroupingFunctions { get; }
-
-        private string GetExtension(string file)
-        {
-            return _fileSystem.Path.GetExtension(file);
-        }
-
-        private string GetFileName(string file)
-        {
-            return _fileSystem.Path.GetFileNameWithoutExtension(file);
-        }
-
-        private string GetFileSize(string file)
-        {
-            return _fileSystem.FileInfo.FromFileName(file).Length.ToString();
-        }
-
-        private string GetShortHash(string file)
-        {
-            // Fix wrong path separators
-            var sanitizedPath = _fileSystem.Path.GetFullPath(file);
-
-            using (var md5 = MD5.Create())
-            using (var stream = _fileSystem.File.OpenRead(sanitizedPath))
-            {
-                return Convert.ToBase64String(md5.ComputeHash(stream));
-            }
-        }
-
-        private string GetLongHash(string file)
-        {
-            var sanitizedPath = _fileSystem.Path.GetFullPath(file);
-
-            using (var sha512 = SHA512.Create())
-            using (var stream = _fileSystem.File.OpenRead(sanitizedPath))
-            {
-                return Convert.ToBase64String(sha512.ComputeHash(stream));
-            }
-        }
 
         private static IDictionary<string, IList<string>> GroupBy(IEnumerable<string> files, Func<string, string> func)
         {
@@ -118,12 +57,12 @@ namespace DupKiller
 
         private IDictionary<string, IList<string>> BuildDuplicatesIndex(
             IEnumerable<string> files,
-            IList<GroupingCriteria> criteria,
+            IList<Func<string, string>> criteria,
             int criterionIndex = 0,
             string prefix = ""
         )
         {
-            var groups = GroupBy(files, GroupingFunctions[criteria[criterionIndex].ToString()]);
+            var groups = GroupBy(files, criteria[criterionIndex]);
             var duplicateGroups = TakeOnlyDuplicates(groups);
 
             if (criterionIndex + 1 < criteria.Count)
@@ -142,15 +81,6 @@ namespace DupKiller
             var prefixedGroups = string.IsNullOrEmpty(prefix) ? duplicateGroups : PrefixGroups(duplicateGroups, prefix);
 
             return prefixedGroups;
-        }
-
-        private enum GroupingCriteria
-        {
-            Extension,
-            FileName,
-            FileSize,
-            ShortHash,
-            LongHash
         }
     }
 }
