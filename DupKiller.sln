@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DupKiller", "DupKiller\DupKiller.csproj", "{74EB5342-3560-4048-A8D9-EE95DB5D44BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{4A557354-553D-4743-9A8D-D817257DA693}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{4A557354-553D-4743-9A8D-D817257DA693}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

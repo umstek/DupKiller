@@ -56,7 +56,7 @@ namespace DupKiller
             return prefixedGroups;
         }
 
-        private IDictionary<string, IList<string>> BuildDuplicatesIndex(
+        private static IDictionary<string, IList<string>> BuildDuplicatesIndex(
             IEnumerable<string> files,
             IEnumerable<Func<string, string>> criteria,
             string prefix = ""
